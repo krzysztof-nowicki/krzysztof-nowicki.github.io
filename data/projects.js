@@ -513,7 +513,7 @@ else {
     coverAlt: "Illustration of a flight path weaving between weather-radar cells",
     role: "Participant",
     description: [
-      "The model predicts the next latitude and longitude of a flight from its metadata and a weather-radar (VIL) grid. The prediction is rolled out step by step into a whole trajectory, and moves into strong weather are rejected. I compared several scikit-learn regressors (random forest, lasso, k-NN, decision tree, gradient boosting, MLP), AutoKeras and a small PyTorch model, and scored trajectories with the Fréchet distance against the real ones."
+      "The model predicts the next latitude and longitude of a flight from its metadata and a weather-radar (VIL) grid. The prediction is rolled out step by step into a whole trajectory, and moves into strong weather are rejected. I compared several scikit-learn regressors (random forest, lasso, k-NN, decision tree, gradient boosting, MLP), AutoKeras and a small PyTorch model, and scored trajectories with the Fréchet distance against the real ones. Important to note, that correct answer here was using LSTMs, but we didn't think of that. :P"
     ]
   },
 
