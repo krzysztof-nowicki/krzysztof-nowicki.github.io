@@ -31,8 +31,9 @@
 
   /* ---------- Projects ---------- */
   function card(p) {
-    const media = p.cover
-      ? h("img", { src: p.cover, alt: p.coverAlt || "", loading: "lazy", width: 640, height: 360 })
+    const src = p.cardCover || p.cover;
+    const media = src
+      ? h("img", { src, alt: p.coverAlt || "", loading: "lazy", width: 640, height: 360 })
       : h("div", { class: "card__fallback", "aria-hidden": "true" }, p.title.split(/\s+/).slice(0, 2).map(w => w[0]).join(""));
     return h("article", { class: "card" + (p.featured ? " card--featured" : ""), dataset: { id: p.id, status: p.status, search: [p.title, p.tagline, p.summary, ...(p.tech || [])].join(" ").toLowerCase(), tech: (p.tech || []).join("|").toLowerCase() } },
       h("div", { class: "card__media" }, media,

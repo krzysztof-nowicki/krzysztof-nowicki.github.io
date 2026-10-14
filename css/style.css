@@ -12,7 +12,7 @@
   --stone-3: #3b3845;
   --parchment: #e9e1cf;
   --parchment-dim: #b9b0a0;
-  --ash: #8a8494;
+  --ash: #9a94a4;
   --blood: #a3172a;
   --blood-bright: #d8263d;
   --blood-deep: #5c0b16;
@@ -119,7 +119,7 @@ p { margin: 0 0 1em; }
 .nav__toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
 .nav__toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
 .nav__toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-.hud-hearts { font-size: .85rem; color: var(--blood-bright); font-family: var(--font-pixel); white-space: nowrap; }
+.hud-hearts { font-size: .85rem; color: #ee4b60; font-family: var(--font-pixel); white-space: nowrap; }
 .hud-hearts.is-bump { animation: bump .35s ease; }
 @keyframes bump { 50% { transform: scale(1.35); } }
 
@@ -142,7 +142,9 @@ p { margin: 0 0 1em; }
 .hero__kicker { color: var(--gold); font-size: .8rem; margin-bottom: .6rem; }
 .hero__title { font-size: clamp(2.6rem, 7vw, 5.2rem); font-weight: 900; letter-spacing: .04em; margin: 0; color: var(--parchment); text-shadow: 0 0 30px rgba(216, 38, 61, .35), 0 4px 0 var(--blood-deep); }
 .hero__role { font-family: var(--font-display); color: var(--gold-bright); font-size: clamp(1rem, 2.2vw, 1.35rem); letter-spacing: .14em; text-transform: uppercase; margin: .6rem 0 1.2rem; }
-.hero__lead { max-width: 38em; color: var(--parchment-dim); font-size: 1.1rem; }
+.hero__lead { max-width: 34rem; color: var(--parchment-dim); font-size: 1.1rem; text-shadow: 0 1px 10px var(--night-0), 0 0 2px var(--night-0); }
+.hero__role, .hero__kicker { text-shadow: 0 1px 10px var(--night-0); }
+@media (max-width: 700px) { .hero__scroll { display: none; } }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.6rem; }
 .hero__scroll { position: absolute; left: 50%; bottom: 24px; width: 26px; height: 42px; border: 2px solid var(--parchment-dim); border-radius: 14px; transform: translateX(-50%); }
 .hero__scroll span { position: absolute; left: 50%; top: 8px; width: 4px; height: 8px; margin-left: -2px; background: var(--candle); border-radius: 2px; animation: scrollhint 1.8s infinite; }

@@ -51,7 +51,11 @@
       clouds = Array.from({ length: 5 }, () => ({ x: rand() * W, y: H * (0.1 + rand() * 0.35), w: 180 + rand() * 260, v: 4 + rand() * 8 }));
     }
 
-    function moonPos() { return { x: W > 900 ? W * 0.8 : W * 0.72, y: H * 0.24, r: Math.max(38, Math.min(W, H) * 0.09) }; }
+    // On narrow screens the moon sits in the top corner, above the title, so it never sits behind text.
+    function moonPos() {
+      if (W < 700) return { x: W * 0.84, y: 92, r: 26 };
+      return { x: W > 900 ? W * 0.8 : W * 0.72, y: H * 0.24, r: Math.max(38, Math.min(W, H) * 0.09) };
+    }
 
     function draw(t) {
       // Sky

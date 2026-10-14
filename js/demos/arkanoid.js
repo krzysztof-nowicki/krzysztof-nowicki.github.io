@@ -120,7 +120,7 @@
 
   PortfolioDemos.register("arkanoid", {
     title: "Arkanoid with custom physics",
-    note: "Simulation of my C++/FreeGLUT Arkanoid: a 10 ms fixed-step loop and a rebound off the side nearest the ball centre. Press Start, switch on the physics debug to see the chosen normal, and try the gravity slider (the original had g = 0).",
+    note: "Browser port of my FreeGLUT Arkanoid and the course physics it builds on: a 10 ms fixed-step loop and a rebound off the side nearest the ball centre. Press Start, switch on the physics debug to see the chosen normal, and try the gravity slider (the original had g = 0).",
     mount(host, kit) {
       const h = kit.h;
       const c = kit.colors();

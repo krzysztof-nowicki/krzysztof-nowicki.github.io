@@ -69,6 +69,7 @@ Useful flags:
 | `compact: true, page: false` | Listed under "More projects", no page (for work without code or media) |
 | `hidden: true` | Not shown anywhere; preview with `project.html?id=<id>&preview` |
 | `demo: "<name>"` | Loads `js/demos/<name>.js` on the project page |
+| `cardCover: "<path>"` | A different image for the card than the page cover |
 | `coverOnPage: false` | Use `cover` on the card only (e.g. when the cover is a screenshot of the demo shown on the page) |
 
 Images: put them in `assets/projects/<id>/` (WebP or JPG, around 1400 px wide is plenty). The existing ones were copied and resized by an import script kept outside this repository (it lists local paths).

@@ -28,7 +28,6 @@ window.PORTFOLIO.projects = [
     coverCaption: "Detected advertisements (class \"ad\") on a building facade.",
     role: "Author (master's thesis)",
     facts: [["University", "Poznan University of Technology"], ["Dataset", "≈1,050 labelled images"]],
-    links: [{ label: "Code on GitHub", url: "https://github.com/krzysztof-nowicki/Ad-removal-and-inpaint" }],
     description: [
       { heading: "The idea", text: [
         "Cities are covered in advertising. The thesis asks a simple question: can a computer find every advertisement in a street photo and remove it so convincingly that you cannot tell it was there?",
@@ -85,8 +84,8 @@ window.PORTFOLIO.projects = [
     tagline: "Turning electrical signals of plants and fungi into music with a signal-agnostic 'skeleton' and a neural network.",
     status: "wip",
     category: "personal",
-    featured: true,
     order: 2,
+    cardCover: "assets/projects/planty/card.webp",
     year: "2026",
     tech: ["Python", "PyTorch", "NumPy", "SciPy", "librosa", "pandas", "Matplotlib", "pytest"],
     summary: "Any biosignal is reduced to two slow curves, contour and energy. A network trained only on real music learns to turn those curves into a spectrogram, so a Mimosa leaf can 'play' a song.",
@@ -151,13 +150,13 @@ window.PORTFOLIO.projects = [
     description: [
       { heading: "How it works", text: [
         "Two RGB cameras watch the operator. Each image goes through a convolutional network that regresses three arm keypoints (shoulder, elbow, wrist) from a 96×96 crop. I compared several pretrained backbones, ResNet34, AlexNet and MobileNetV2, with their last layers cut off and a custom keypoint decoder attached, trained with Adam and an MSE loss.",
-        "Both cameras are calibrated individually and as a stereo pair with OpenCV. The 2D keypoints from the two views are triangulated with the direct linear transform into a 3D point, and a ROS node maps that point into the workspace of a UR5 robot, which follows the operator's hand."
+        "Both cameras are calibrated individually and as a stereo pair with OpenCV. The 2D keypoints from the two views are triangulated with the direct linear transform into 3D points. From the shoulder, elbow and wrist vectors a ROS node computes the arm's joint angles and sends them to a UR5 robot as joint trajectories, so the robot copies the operator's pose."
       ] }
     ],
     highlights: [
       "Backbone comparison: ResNet34, AlexNet and MobileNetV2 with custom decoders",
       "Stereo calibration and DLT triangulation of the keypoints",
-      "ROS bridge to a Universal Robots UR5 arm"
+      "Limb vectors to joint angles, sent to a Universal Robots UR5 over ROS"
     ],
     demo: "arm-teleop",
     snippets: [
@@ -221,7 +220,7 @@ newmodel4 = torch.nn.Sequential(*(list(net6.children())[:-1]))#[1, 1280, 3, 3]`
     demo: "gothic-platformer",
     snippets: [{
       language: "cpp", file: "Kolizja.cpp",
-      note: "Collision between two boxes: measure the overlap on each axis, then resolve along the smaller one and split the correction by the push factor.",
+      note: "Collision between two boxes: measure the overlap on each axis, then resolve along the smaller one and split the correction by the push factor. (Abridged.)",
       code: `sf::Vector2f TaPozycja = Pozycja();
 sf::Vector2f TaPozycjaPol = PozycjaPol();
 float deltaX = innaPozycja.x - TaPozycja.x;
@@ -440,7 +439,7 @@ full_prob = 0.4 * first_prob + 0.1 * sec_prob + 0.5 * third_prob`
     description: [
       { heading: "How it works", text: [
         "The robot measures distance with an HC-SR04 ultrasonic sensor and drives two DC motors through an H-bridge. Its behaviour is a small finite-state machine on that one number: search (spin in place) when nothing is close, follow (drive forward) when something is within 60 cm, and attack (stop and sweep the servo arm) under 10 cm.",
-        "Related builds in the same folder include LAZYBOT, a robot driven by an IR remote with PWM speed control and a servo arm."
+        "A related build, LAZYBOT, is steered by an IR remote with PWM speed control and a servo arm (see the Archive)."
       ] }
     ],
     demo: "robot-arena",
@@ -470,8 +469,8 @@ else {
     id: "arkanoid",
     cover: "assets/projects/arkanoid/cover.webp",
     coverOnPage: false,
-    title: "Arkanoid on a hand-built physics layer",
-    tagline: "University C++ game with FreeGLUT: a class hierarchy for shapes and physics, collisions and reflections.",
+    title: "Arkanoid on a FreeGLUT physics framework",
+    tagline: "University C++ game built on the course's shape and physics classes: collisions, reflections and a playable level.",
     status: "finished",
     category: "university",
     order: 10,
@@ -488,7 +487,7 @@ else {
     demoNote: "A browser port of the physics. Unlike the original, which has a bottom wall, the ball can fall past the paddle here, so you can lose lives.",
     snippets: [{
       language: "cpp", file: "Physics.cpp",
-      note: "The law of reflection in three lines: angles in degrees, and the rebound only applies when the ball moves into the wall.",
+      note: "The rebound rule from the course's Physics class, which the game relies on: angles in degrees, applied only when the ball moves into the wall. (Comments translated.)",
       code: `void Physics::Rebound(double alfa_n) // rebound from a wall described by its normal alfa_n
 {
 	// angle of incidence equals angle of reflection (only if the object moves into the wall)
@@ -526,7 +525,7 @@ else {
     category: "university",
     order: 12,
     tech: ["PyTorch", "torchvision", "OpenCV", "ONNX", "Jupyter"],
-    summary: "A COCO-pretrained Keypoint R-CNN fine-tuned to find two keypoints per apple, the ends of its axis, from my own annotations, then exported to ONNX for deployment.",
+    summary: "A COCO-pretrained Keypoint R-CNN fine-tuned to find two keypoints per apple, the ends of its axis, from custom annotations, then exported to ONNX for deployment.",
     cover: "assets/projects/apple-keypoints/cover.svg",
     coverAlt: "Illustration of two apples with detection boxes and axis keypoints",
     role: "Author",
@@ -554,7 +553,7 @@ else {
     snippets: [
       {
         language: "python", file: "teamviewer_guard.py",
-        note: "Detecting a rotated or replaced log file: if the file's device and inode pair changes, reopen it at the end. (Log message translated to English.)",
+        note: "Detecting a rotated or replaced log file: if the file's identity (volume and file ID) changes, reopen it at the end. (Log message translated to English.)",
         code: `identity = (
     stat.st_dev,
     stat.st_ino,
