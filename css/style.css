@@ -357,7 +357,7 @@ p { margin: 0 0 1em; }
 .demo__stage { position: relative; background: var(--night-0); border: 1px solid var(--stone-3); }
 /* Vertical swipes scroll the page by default; demos whose canvas is a drawing or dragging surface opt out. */
 .demo__stage canvas { display: block; width: 100%; height: auto; touch-action: pan-y; }
-.d-inpaint .demo__stage canvas, .d-factor-graph-tracking .demo__stage canvas, .d-robot-arena .demo__stage canvas { touch-action: none; }
+.d-inpaint .demo__stage canvas, .d-robot-arena .demo__stage canvas { touch-action: none; }
 .demo__controls { display: flex; flex-wrap: wrap; gap: .8rem 1.4rem; align-items: center; margin-top: 1rem; }
 .demo__control { display: flex; flex-direction: column; gap: .2rem; min-width: min(100%, 180px); flex: 1 1 180px; font-size: .9rem; color: var(--parchment-dim); }
 .demo__control output { font-family: var(--font-mono); color: var(--gold-bright); font-size: .82rem; }

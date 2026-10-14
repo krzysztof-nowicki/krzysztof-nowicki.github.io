@@ -80,6 +80,7 @@ window.PORTFOLIO.projects = [
 
   {
     id: "planty",
+    featured: true,
     title: "Planty — the music of plants",
     tagline: "Turning electrical signals of plants and fungi into music with a signal-agnostic 'skeleton' and a neural network.",
     status: "wip",
@@ -140,7 +141,7 @@ window.PORTFOLIO.projects = [
     tagline: "Bachelor's thesis: a neural network finds the operator's arm in camera images, and a UR5 robot copies its movement.",
     status: "finished",
     category: "thesis",
-    featured: false,
+    featured: true,
     order: 3,
     year: "2022",
     tech: ["Python", "PyTorch", "TensorFlow", "OpenCV", "ROS", "UR5", "NumPy"],
@@ -352,47 +353,6 @@ bool writePixel(int x, int y, RGB c) {
     }]
   },
 
-  {
-    id: "factor-graph-tracking",
-    cover: "assets/projects/factor-graph-tracking/cover.webp",
-    coverOnPage: false,
-    title: "Pedestrian tracking with a factor graph",
-    tagline: "Which person in this frame is which person in the last one? Three weighted clues and belief propagation decide.",
-    status: "finished",
-    category: "university",
-    order: 7,
-    year: "2022",
-    tech: ["Python", "pgmpy", "OpenCV", "NumPy"],
-    summary: "Matches bounding boxes between consecutive frames using box size, distance and colour, combined in a factor graph that also allows 'new person' and forbids two boxes taking the same identity.",
-    role: "Author",
-    links: [{ label: "Code on GitHub", url: "https://github.com/krzysztof-nowicki/projekt-SIwR" }],
-    description: [
-      { heading: "How it works", text: [
-        "For every pair of boxes in the previous and current frame I compute three similarities: size (weight 0.4, people rarely change size between frames), distance between boxes (weight 0.1, people can move a lot) and the mean colour in the centre of the box (weight 0.5, the most reliable clue even under changing light).",
-        "Each person in the current frame becomes a variable in a pgmpy factor graph. Unary factors hold the weighted similarities plus a fixed score for 'new person'; pairwise factors forbid two people from taking the same previous identity. Belief propagation then gives the most likely assignment."
-      ] }
-    ],
-    highlights: [
-      "Hand-designed similarity with weights chosen by how much each clue can change",
-      "Mutual-exclusion factors keep identities unique",
-      "Explicit 'new object' state for people entering the scene"
-    ],
-    demo: "factor-graph-tracking",
-    snippets: [{
-      language: "python", file: "main.py",
-      note: "The three clues and their weights, computed for every pair of boxes.",
-      code: `#Size difference of bboxes
-first_prob = np.sum(1 - np.abs(np.subtract(peopleSize[j], peopleSize2[i])) / peopleSize2[i]) / 2
-#Distance between two bboxes
-sec_prob = np.sum(
-    1 - np.abs(np.subtract(peopleCoord[j], peopleCoord2[i])) / [img.shape[1], img.shape[0]]) / 2
-#Difference between mean colors in the centres of bboxes
-third_prob = np.sum(1 - np.abs(np.mean(color2comp) - np.mean(color1comp)) / 255)
-
-#Full probability including weights
-full_prob = 0.4 * first_prob + 0.1 * sec_prob + 0.5 * third_prob`
-    }]
-  },
 
   {
     id: "robor-sword",
@@ -534,59 +494,6 @@ else {
     ]
   },
 
-  {
-    id: "desktop-notifiers",
-    title: "Push-alert desktop tools",
-    tagline: "Two small Windows utilities that send a phone notification when something needs attention.",
-    status: "finished",
-    category: "personal",
-    order: 13,
-    tech: ["Python", "tkinter", "pywin32", "PyInstaller"],
-    summary: "TeamViewer Guard alerts on incoming remote connections by tailing the connection log; Outlook Notifier pushes new-mail subjects from chosen folders. Both are packaged as single .exe files.",
-    cover: "assets/projects/desktop-notifiers/cover.svg",
-    coverAlt: "Illustration of a log being watched on a desktop and a push alert on a phone",
-    role: "Author",
-    description: [
-      { heading: "TeamViewer Guard", text: "A Tkinter app that tails TeamViewer's incoming-connections log and sends an urgent push notification for every new connection. It starts at the end of the file so old entries do not alert, detects log rotation by comparing file identity, suppresses duplicates, and can optionally close a chosen program right away." },
-      { heading: "Outlook Notifier", text: "A CustomTkinter app that lets you pick Outlook folders, polls them through COM automation and pushes the subject of each new mail to your phone. On the first run it takes a snapshot of the mailbox so only genuinely new mail triggers an alert." }
-    ],
-    snippets: [
-      {
-        language: "python", file: "teamviewer_guard.py",
-        note: "Detecting a rotated or replaced log file: if the file's identity (volume and file ID) changes, reopen it at the end. (Log message translated to English.)",
-        code: `identity = (
-    stat.st_dev,
-    stat.st_ino,
-)
-
-# New file.
-if (
-    current_file_identity is not None
-    and
-    identity != current_file_identity
-):
-    write_log("New log file detected (identity changed).")
-    open_log_at_end(path)`
-      },
-      {
-        language: "python", file: "outlook/watcher.py",
-        note: "Poll and diff: only mail IDs not seen before trigger the notification. (Blank lines removed.)",
-        code: `items = folder.Items
-items.Sort("[ReceivedTime]", True)
-
-for i in range(1, min(items.Count + 1, 20)):
-    item = items.Item(i)
-    try:
-        entry_id = item.EntryID
-        if entry_id not in self.last_ids:
-            self.last_ids.add(entry_id)
-            subject = getattr(item, "Subject", "NO SUBJECT")
-            self.callback(subject)
-    except:
-        continue`
-      }
-    ]
-  },
 
   /* ------------------------------------------------------------------ Practice exercises (new_codes folder, outside this repo)
      Hidden until finished: set hidden: false and status: "finished", add a cover/gallery from the
