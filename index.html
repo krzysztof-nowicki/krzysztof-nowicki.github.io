@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Krzysztof Nowicki — Portfolio</title>
+  <meta name="description" content="Portfolio of Krzysztof Nowicki: robotics, computer vision and AI software projects.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Spectral:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&family=Silkscreen&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="top">
+    <nav class="nav" aria-label="Main">
+      <a class="nav__brand" href="#top" aria-label="Home"><span class="crest" aria-hidden="true">KN</span><span class="nav__name"></span></a>
+      <button class="nav__toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu"><span></span><span></span><span></span></button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#chronicle">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="hud-hearts" title="Candles broken — find them around the castle" aria-live="polite"><span class="pixel">♥</span> <span class="hud-hearts__count">00</span></div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <canvas class="hero__canvas" aria-hidden="true"></canvas>
+      <div class="hero__content">
+        <p class="pixel hero__kicker">— Prologue —</p>
+        <h1 id="hero-title" class="hero__title"></h1>
+        <p class="hero__role"></p>
+        <p class="hero__lead"></p>
+        <div class="hero__actions">
+          <a class="btn btn--blood" href="#projects">Enter the library</a>
+          <a class="btn btn--ghost" href="#contact">Send a raven</a>
+        </div>
+      </div>
+      <aside class="status-window hero__status" aria-label="Character sheet"></aside>
+      <a class="hero__scroll" href="#about" aria-label="Scroll to About"><span></span></a>
+    </section>
+
+    <section class="section" id="about" aria-labelledby="about-title">
+      <header class="section__head">
+        <p class="pixel section__kicker">Chapter I</p>
+        <h2 id="about-title">About me</h2>
+        <button class="candle" type="button" aria-label="Break the candle"></button>
+      </header>
+      <div class="about">
+        <div class="about__text"></div>
+        <dl class="about__facts status-window"></dl>
+      </div>
+    </section>
+
+    <section class="section" id="projects" aria-labelledby="projects-title">
+      <header class="section__head">
+        <p class="pixel section__kicker">Chapter II — The Library</p>
+        <h2 id="projects-title">Projects</h2>
+        <button class="candle" type="button" aria-label="Break the candle"></button>
+      </header>
+      <div class="filters" role="toolbar" aria-label="Filter projects">
+        <div class="filters__group" data-filter="status">
+          <button type="button" class="chip is-active" data-value="all" aria-pressed="true">All</button>
+          <button type="button" class="chip" data-value="finished" aria-pressed="false">Finished</button>
+          <button type="button" class="chip" data-value="wip" aria-pressed="false">In progress</button>
+        </div>
+        <label class="filters__search"><span class="sr-only">Search projects</span><input type="search" placeholder="Search by name or technology…" autocomplete="off"></label>
+        <div class="filters__tags" aria-label="Filter by technology"></div>
+      </div>
+      <p class="filters__empty" hidden>No project matches — try another spell.</p>
+      <div class="project-grid" aria-live="polite"></div>
+
+      <details class="archive">
+        <summary><span class="pixel">The Archive</span> Lab exercises and coursework</summary>
+        <p class="archive__note">Smaller exercises from university labs and courses. Kept for completeness, not as showcases.</p>
+        <ul class="archive__list"></ul>
+      </details>
+    </section>
+
+    <section class="section" id="skills" aria-labelledby="skills-title">
+      <header class="section__head">
+        <p class="pixel section__kicker">Chapter III — Relics</p>
+        <h2 id="skills-title">Skills</h2>
+        <button class="candle" type="button" aria-label="Break the candle"></button>
+      </header>
+      <p class="section__intro">Each meter counts the projects on this site that use the skill. Click a skill to see those projects.</p>
+      <div class="skills"></div>
+    </section>
+
+    <section class="section" id="chronicle" aria-labelledby="chronicle-title">
+      <header class="section__head">
+        <p class="pixel section__kicker">Chapter IV — Chronicle</p>
+        <h2 id="chronicle-title">Experience &amp; education</h2>
+        <button class="candle" type="button" aria-label="Break the candle"></button>
+      </header>
+      <ol class="timeline"></ol>
+    </section>
+
+    <section class="section section--contact" id="contact" aria-labelledby="contact-title">
+      <header class="section__head">
+        <p class="pixel section__kicker">Epilogue</p>
+        <h2 id="contact-title">Contact</h2>
+        <button class="candle" type="button" aria-label="Break the candle"></button>
+      </header>
+      <div class="contact"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Built with HTML, CSS and vanilla JavaScript. No castles were harmed.</p>
+    <p class="pixel site-footer__hint">↑ ↑ ↓ ↓ ← → ← → B A</p>
+  </footer>
+
+  <script src="data/profile.js"></script>
+  <script src="data/projects.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/hero.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

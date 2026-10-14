@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="../">
+  <title>Demo test bench</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Spectral:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&family=Silkscreen&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Development page: mounts one demo alone. Open tools/demo-test.html?demo=<name> -->
+  <main class="project-page">
+    <h1 class="demo-test__title">Demo</h1>
+    <p class="project__demo-note"></p>
+    <div class="demo-host"></div>
+  </main>
+  <script src="data/profile.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/demos/demo-kit.js"></script>
+  <script>
+    const name = new URLSearchParams(location.search).get("demo");
+    PortfolioDemos.load(name).then(demo => {
+      document.querySelector(".demo-test__title").textContent = demo.title || name;
+      document.querySelector(".project__demo-note").textContent = demo.note || "";
+      demo.mount(document.querySelector(".demo-host"), PortfolioDemos.kit);
+      document.body.dataset.mounted = "yes";
+    }).catch(err => { document.body.dataset.mounted = "error"; console.error(err); });
+  </script>
+</body>
+</html>

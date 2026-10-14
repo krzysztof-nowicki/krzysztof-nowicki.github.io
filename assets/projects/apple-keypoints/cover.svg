@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+  <!-- Illustration: apples with detected boxes and the two axis keypoints. -->
+  <defs>
+    <radialGradient id="a" cx=".35" cy=".35" r=".75"><stop offset="0" stop-color="#e0627a"/><stop offset=".6" stop-color="#a3172a"/><stop offset="1" stop-color="#5c0b16"/></radialGradient>
+    <radialGradient id="b" cx=".35" cy=".35" r=".75"><stop offset="0" stop-color="#c8d870"/><stop offset=".6" stop-color="#7a9a32"/><stop offset="1" stop-color="#3d5214"/></radialGradient>
+  </defs>
+  <rect width="640" height="360" fill="#0c0d13"/>
+  <g>
+    <path d="M200 120c-50-30-120 0-110 80 8 60 60 100 110 80 50 20 102-20 110-80 10-80-60-110-110-80z" fill="url(#a)"/>
+    <path d="M200 120c-4-20 2-34 14-44" stroke="#6b4a2a" stroke-width="5" fill="none"/>
+    <rect x="80" y="78" width="240" height="218" fill="none" stroke="#f0cf7a" stroke-width="2"/>
+    <text x="84" y="72" font-family="monospace" font-size="15" fill="#f0cf7a">apple 0.97</text>
+    <line x1="200" y1="122" x2="198" y2="282" stroke="#5fb3a8" stroke-width="3" stroke-dasharray="6 5"/>
+    <circle cx="200" cy="122" r="7" fill="#5fb3a8"/><circle cx="198" cy="282" r="7" fill="#5fb3a8"/>
+  </g>
+  <g transform="translate(440 190) rotate(28)">
+    <path d="M0 -60c-40-24-96 0-88 64 6 48 48 80 88 64 40 16 82-16 88-64 8-64-48-88-88-64z" fill="url(#b)"/>
+    <line x1="0" y1="-58" x2="-2" y2="68" stroke="#5fb3a8" stroke-width="3" stroke-dasharray="6 5"/>
+    <circle cx="0" cy="-58" r="6" fill="#5fb3a8"/><circle cx="-2" cy="68" r="6" fill="#5fb3a8"/>
+  </g>
+  <rect x="340" y="92" width="200" height="200" fill="none" stroke="#f0cf7a" stroke-width="2"/>
+  <text x="344" y="86" font-family="monospace" font-size="15" fill="#f0cf7a">apple 0.93</text>
+</svg>

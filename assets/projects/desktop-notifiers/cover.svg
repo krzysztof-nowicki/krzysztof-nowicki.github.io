@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+  <!-- Illustration: a log being tailed on the desktop and a push alert arriving on a phone. -->
+  <rect width="640" height="360" fill="#0c0d13"/>
+  <rect x="40" y="50" width="360" height="250" rx="6" fill="#13141c" stroke="#3b3845"/>
+  <rect x="40" y="50" width="360" height="26" rx="6" fill="#1c1c25"/>
+  <circle cx="58" cy="63" r="5" fill="#a3172a"/><circle cx="76" cy="63" r="5" fill="#3b3845"/><circle cx="94" cy="63" r="5" fill="#3b3845"/>
+  <g font-family="monospace" font-size="13" fill="#8a8494">
+    <text x="58" y="104">14:02:11  watching log ...</text>
+    <text x="58" y="128">14:02:11  start at end of file</text>
+    <text x="58" y="152">14:07:45  new line detected</text>
+    <text x="58" y="176" fill="#e0a03a">14:07:45  incoming connection!</text>
+    <text x="58" y="200" fill="#5fb3a8">14:07:45  push alert sent</text>
+    <text x="58" y="224">14:07:46  duplicate suppressed</text>
+    <text x="58" y="248">14:12:03  log rotated, reopened</text>
+    <rect x="58" y="262" width="9" height="16" fill="#f0cf7a"/>
+  </g>
+  <rect x="440" y="40" width="150" height="285" rx="20" fill="#07080c" stroke="#3b3845" stroke-width="3"/>
+  <rect x="452" y="64" width="126" height="244" rx="6" fill="#13141c"/>
+  <rect x="460" y="96" width="110" height="62" rx="8" fill="#2a2833" stroke="#c9a24a"/>
+  <circle cx="476" cy="114" r="8" fill="#d8263d"/>
+  <rect x="490" y="108" width="66" height="7" rx="3" fill="#e9e1cf"/>
+  <rect x="470" y="128" width="88" height="6" rx="3" fill="#8a8494"/>
+  <rect x="470" y="142" width="64" height="6" rx="3" fill="#8a8494"/>
+  <path d="M410 170 l26 -6" stroke="#c9a24a" stroke-width="2" stroke-dasharray="5 4"/>
+</svg>

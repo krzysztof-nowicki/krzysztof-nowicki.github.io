@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project — Krzysztof Nowicki</title>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Spectral:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&family=Silkscreen&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-project">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header site-header--solid" id="top">
+    <nav class="nav" aria-label="Main">
+      <a class="nav__brand" href="index.html" aria-label="Home"><span class="crest" aria-hidden="true">KN</span><span class="nav__name"></span></a>
+      <button class="nav__toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu"><span></span><span></span><span></span></button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#chronicle">Experience</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <div class="hud-hearts" title="Candles broken — find them around the castle" aria-live="polite"><span class="pixel">♥</span> <span class="hud-hearts__count">00</span></div>
+    </nav>
+  </header>
+
+  <main id="main" class="project-page">
+    <a class="back-link" href="index.html#projects">← Back to the library</a>
+    <article class="project" hidden>
+      <header class="project__head">
+        <div class="project__badges"></div>
+        <h1 class="project__title"></h1>
+        <p class="project__tagline"></p>
+        <ul class="tag-list project__tech" aria-label="Technologies"></ul>
+        <div class="project__links"></div>
+      </header>
+
+      <figure class="project__cover"></figure>
+
+      <div class="project__body">
+        <section class="project__desc" aria-label="Description"></section>
+        <aside class="project__facts status-window" aria-label="Project facts"></aside>
+      </div>
+
+      <section class="project__demo" hidden aria-labelledby="demo-title">
+        <h2 id="demo-title"><span class="pixel section__kicker">Interactive</span> <span class="project__demo-title">Demo</span></h2>
+        <p class="project__demo-note"></p>
+        <div class="demo-host"></div>
+      </section>
+
+      <section class="project__gallery" hidden aria-labelledby="gallery-title">
+        <h2 id="gallery-title">Results</h2>
+        <div class="gallery"></div>
+      </section>
+
+      <section class="project__code" hidden aria-labelledby="code-title">
+        <h2 id="code-title">A piece of the code</h2>
+        <p class="project__code-note"></p>
+        <div class="code-block"></div>
+      </section>
+
+      <nav class="project__pager" aria-label="Other projects"></nav>
+    </article>
+
+    <div class="not-found" hidden>
+      <h1>This page lies in another castle</h1>
+      <p>The project you are looking for does not exist.</p>
+      <a class="btn btn--blood" href="index.html#projects">Return to the library</a>
+    </div>
+  </main>
+
+  <div class="lightbox" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lightbox__close" type="button" aria-label="Close">×</button>
+    <button class="lightbox__prev" type="button" aria-label="Previous image">‹</button>
+    <img class="lightbox__img" alt="">
+    <button class="lightbox__next" type="button" aria-label="Next image">›</button>
+    <p class="lightbox__caption"></p>
+  </div>
+
+  <footer class="site-footer">
+    <p>Built with HTML, CSS and vanilla JavaScript. No castles were harmed.</p>
+  </footer>
+
+  <script src="data/profile.js"></script>
+  <script src="data/projects.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/highlight.js"></script>
+  <script src="js/demos/demo-kit.js"></script>
+  <script src="js/project.js"></script>
+</body>
+</html>

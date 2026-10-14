@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+  <!-- Illustration: a flight path weaving between weather-radar cells. -->
+  <rect width="640" height="360" fill="#0c0d13"/>
+  <g stroke="#1c1c25" stroke-width="1">
+    <path d="M0 40H640M0 80H640M0 120H640M0 160H640M0 200H640M0 240H640M0 280H640M0 320H640"/>
+    <path d="M40 0V360M80 0V360M120 0V360M160 0V360M200 0V360M240 0V360M280 0V360M320 0V360M360 0V360M400 0V360M440 0V360M480 0V360M520 0V360M560 0V360M600 0V360"/>
+  </g>
+  <g opacity=".85">
+    <rect x="240" y="80" width="40" height="40" fill="#1f5f4a"/><rect x="280" y="80" width="40" height="40" fill="#2f8f5a"/>
+    <rect x="280" y="120" width="40" height="40" fill="#c9a24a"/><rect x="320" y="120" width="40" height="40" fill="#e0a03a"/>
+    <rect x="320" y="160" width="40" height="40" fill="#d8263d"/><rect x="280" y="160" width="40" height="40" fill="#c9a24a"/>
+    <rect x="360" y="160" width="40" height="40" fill="#2f8f5a"/><rect x="320" y="200" width="40" height="40" fill="#2f8f5a"/>
+    <rect x="240" y="120" width="40" height="40" fill="#1f5f4a"/><rect x="360" y="120" width="40" height="40" fill="#1f5f4a"/>
+    <rect x="440" y="240" width="40" height="40" fill="#1f5f4a"/><rect x="480" y="240" width="40" height="40" fill="#2f8f5a"/>
+    <rect x="480" y="280" width="40" height="40" fill="#1f5f4a"/>
+  </g>
+  <path d="M60 300 C140 280 170 240 200 210 S230 120 250 60 S380 40 420 90 S470 200 560 170 S600 90 600 70" fill="none" stroke="#f0cf7a" stroke-width="3" stroke-dasharray="10 8"/>
+  <circle cx="60" cy="300" r="7" fill="#5fb3a8"/><circle cx="600" cy="70" r="7" fill="#d8263d"/>
+  <g transform="translate(420 90) rotate(70)" fill="#e9e1cf"><path d="M0 -16 L4 -4 L16 2 L16 6 L4 3 L3 12 L7 16 L7 18 L0 16 L-7 18 L-7 16 L-3 12 L-4 3 L-16 6 L-16 2 L-4 -4 Z"/></g>
+</svg>
