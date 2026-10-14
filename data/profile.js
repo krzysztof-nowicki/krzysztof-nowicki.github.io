@@ -12,7 +12,7 @@ window.PORTFOLIO.profile = {
   about: [
     "I studied Automatic Control and Robotics at Poznan University of Technology, finishing a bachelor's degree in Robotics and a master's degree specialising in Robots and Autonomous Systems.",
     "Most of my work sits where software meets the physical world: detecting and removing advertisements from street photos with YOLO and inpainting models, teleoperating a UR5 robot arm from two RGB cameras, regulating temperature on an STM32 microcontroller, and teaching models to react to music and biosignals.",
-    "After university I spent almost three years as an AI Software Engineering Graduate Intern at Intel. Outside of code I play piano and listen to jazz, play basketball and baseball, and keep a healthy collection of video and board games."
+    "After university I spent almost three years as an AI Software Engineering Graduate Intern at Intel. Outside of code I play piano and listen to jazz and classical music, play basketball and watch baseball, and keep a healthy collection of video and board games."
   ],
 
   // Shown in the "character sheet" in the hero and next to About.
