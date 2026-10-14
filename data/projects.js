@@ -589,7 +589,7 @@ for i in range(1, min(items.Count + 1, 20)):
     ]
   },
 
-  /* ------------------------------------------------------------------ Practice exercises (D:\Webber\new_codes)
+  /* ------------------------------------------------------------------ Practice exercises (new_codes folder, outside this repo)
      Hidden until finished: set hidden: false and status: "finished", add a cover/gallery from the
      exercise's showcase output, and they appear on the site. */
   {
