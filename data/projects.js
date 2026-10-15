@@ -183,11 +183,6 @@ window.PORTFOLIO.projects = [
         language: "python", file: "storage.py",
         note: "Coverage: what share of the question's key terms the retrieved facts really contain. It is copied as written; only the Polish docstring examples are translated or replaced.",
         code: `def coverage(question: str, texts: Iterable[str]) -> float:
-    """Share of the question's key terms that appear in the retrieved texts (0.0-1.0).
-
-    BM25 with OR returns a passage when ANY term matches, so "weather in <town>" happily
-    retrieves the persona file because it mentions the town. Coverage tells whether the
-    facts are really about what was asked. A question without key terms ("why?") is 1.0."""
     asked = [_fold(w) for w in key_words(question)]
     if not asked:
         return 1.0
@@ -197,15 +192,13 @@ window.PORTFOLIO.projects = [
       },
       {
         language: "python", file: "assistant.py",
-        note: "The fact gate in _answer_from_facts(): too little coverage means no LLM call. The Polish trace messages are translated to English.",
+        note: "The fact gate in _answer_from_facts(): too little coverage means no LLM call.",
         code: `        facts = [m.content for m in memories] + [p.text for p in passages]
         cov = coverage(search_q, facts)
         self._trace("gate.coverage", f"{cov:.0%} (threshold {self.min_coverage:.0%})")
 
-        # The fact gate: no data about it -> do not let the model guess, ask the user instead
         if self.strict_facts and cov < self.min_coverage and not is_task(question) and not used_web:
             if not is_question(question):
-                # A statement asks for no fact: just reply briefly
                 self._trace("gate.statement", "not a question -> short reply without facts")
                 answer = self._generate(question, question, self.max_tokens_chat, on_token)
                 return Answer(text=answer, kind="chat", coverage=cov)
