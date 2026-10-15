@@ -145,14 +145,14 @@ window.PORTFOLIO.projects = [
     featured: true,
     order: 2.5,
     year: "2026",
-    tech: ["Python", "llama.cpp", "Bielik LLM", "SQLite FTS5", "RAG", "Vosk", "Piper TTS", "Raspberry Pi"],
+    tech: ["Python", "llama.cpp", "LLM", "SQLite FTS5", "RAG", "Vosk", "Piper TTS", "Raspberry Pi"],
     summary: "Say \"hej Melchior\" and ask: speech recognition, retrieval, the Bielik 1.5B language model and speech synthesis all run on a Raspberry Pi 5, with no cloud. If its notes do not cover a question, it does not guess: it asks you and remembers the answer.",
     role: "Author",
     facts: [["Hardware", "Raspberry Pi 5, 8 GB"], ["Model", "Bielik 1.5B Instruct, Q4_K_M GGUF"]],
     description: [
       { heading: "What it is", text: [
         "Melchior is a voice assistant that runs entirely on a Raspberry Pi 5 with 8 GB of RAM and speaks Polish. Vosk listens for the wake phrase \"hej Melchior\", the question goes through a decision pipeline, and the answer comes from Bielik 1.5B Instruct, a Polish language model quantised to Q4_K_M (about 0.9 GB) and run with llama.cpp. Piper reads the answer aloud.",
-        "It is a slimmed-down port of a desktop version that used a 4.5B fp16 model. It also does web search on request (Tavily or DuckDuckGo), small tools, a --trace mode that prints every decision and model call, and it starts at boot as a systemd service."
+        "It is a slimmed-down port of a desktop version that used a 4.5B fp16 model. It also does web search on request (Tavily or DuckDuckGo), small tools from prompt guide, a --trace mode that prints every decision and model call, and it starts at boot as a systemd service."
       ] },
       { heading: "Retrieval and memory", text: [
         "Documents dropped into a folder are split into chunks and indexed in SQLite FTS5. The desktop version used FAISS with sentence-transformers. Switching to BM25 removed torch, saved about 1 GB of RAM and cut start-up to under a second, and for Polish text it retrieves about as well as the English-only MiniLM model did.",
