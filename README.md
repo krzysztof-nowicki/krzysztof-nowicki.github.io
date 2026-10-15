@@ -1,6 +1,6 @@
 # krzysztof-nowicki.github.io
 
-Personal portfolio: robotics, computer vision and AI projects, with interactive demos. Scipts refactored from python and c++ to HTML, CSS and JavaScript using Claude Code.
+Personal portfolio: robotics, computer vision and AI projects, with interactive demos. Scripts refactored from python and c++ to HTML, CSS and JavaScript using Claude Code.
 
 ## Credits
 
