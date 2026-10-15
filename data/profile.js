@@ -43,7 +43,7 @@ window.PORTFOLIO.profile = {
     { name: "Machine learning", skills: [
       { name: "PyTorch" }, { name: "TensorFlow", aliases: ["Keras"] }, { name: "scikit-learn" },
       { name: "YOLO", aliases: ["YOLOv5", "YOLOv7"] }, { name: "GAN", aliases: ["GANs", "DeepFill", "AOT-GAN"] },
-      { name: "Diffusion models", aliases: ["Stable Diffusion", "Diffusion"] }, { name: "Transformers" }, { name: "LLMs", aliases: ["llama-cpp", "Large language models"] }, { name: "ONNX" }
+      { name: "Diffusion models", aliases: ["Stable Diffusion", "Diffusion"] }, { name: "Transformers" }, { name: "LLMs", aliases: ["llama-cpp", "llama.cpp", "Bielik LLM", "Large language models"] }, { name: "ONNX" }
     ] },
     { name: "Vision & data", skills: [
       { name: "OpenCV" }, { name: "NumPy" }, { name: "pandas" }, { name: "Matplotlib" }, { name: "librosa" }

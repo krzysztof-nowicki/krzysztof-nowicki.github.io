@@ -134,6 +134,88 @@ window.PORTFOLIO.projects = [
   },
 
   {
+    id: "melchior-assistant",
+    cover: "assets/projects/melchior-assistant/cover.webp",
+    coverOnPage: false,
+    coverAlt: "The Melchior demo: a chat on the left and the decision pipeline with a closed fact gate on the right",
+    title: "Melchior: an offline voice assistant on a Raspberry Pi",
+    tagline: "A fully local Polish voice assistant on a Raspberry Pi 5: a small LLM, a knowledge base and long-term memory, and a fact gate that stops it from making things up.",
+    status: "finished",
+    category: "personal",
+    featured: true,
+    order: 2.5,
+    year: "2026",
+    tech: ["Python", "llama.cpp", "Bielik LLM", "SQLite FTS5", "RAG", "Vosk", "Piper TTS", "Raspberry Pi"],
+    summary: "Say \"hej Melchior\" and ask: speech recognition, retrieval, the Bielik 1.5B language model and speech synthesis all run on a Raspberry Pi 5, with no cloud. If its notes do not cover a question, it does not guess: it asks you and remembers the answer.",
+    role: "Author",
+    facts: [["Hardware", "Raspberry Pi 5, 8 GB"], ["Model", "Bielik 1.5B Instruct, Q4_K_M GGUF"]],
+    description: [
+      { heading: "What it is", text: [
+        "Melchior is a voice assistant that runs entirely on a Raspberry Pi 5 with 8 GB of RAM and speaks Polish. Vosk listens for the wake phrase \"hej Melchior\", the question goes through a decision pipeline, and the answer comes from Bielik 1.5B Instruct, a Polish language model quantised to Q4_K_M (about 0.9 GB) and run with llama.cpp. Piper reads the answer aloud.",
+        "It is a slimmed-down port of a desktop version that used a 4.5B fp16 model. It also does web search on request (Tavily or DuckDuckGo), small tools, a --trace mode that prints every decision and model call, and it starts at boot as a systemd service."
+      ] },
+      { heading: "Retrieval and memory", text: [
+        "Documents dropped into a folder are split into chunks and indexed in SQLite FTS5. The desktop version used FAISS with sentence-transformers. Switching to BM25 removed torch, saved about 1 GB of RAM and cut start-up to under a second, and for Polish text it retrieves about as well as the English-only MiniLM model did.",
+        "Questions are reduced to key words, stemmed with a crude Polish suffix cutter and sent as prefix OR queries. Weak hits below 0.4 × the best score are dropped. Long-term memory sits in a second FTS5 table. Statements like \"Zapamiętaj, że...\" (\"Remember that...\") or \"Mam na imię...\" (\"My name is...\") are saved by regular expressions, without calling the model."
+      ] },
+      { heading: "Refusing to hallucinate: the fact gate", text: [
+        "A 1.5B model invents answers easily, so it is not allowed to answer from its own knowledge. A deterministic pipeline runs before it. In order: goodbye, a pending \"tell me\" answer, an explicit fact, a question about a name, a regex tool router (time, a calculator that understands spoken number words, timers, memory recall and forget, Pi status), small talk, and only then a knowledge question.",
+        "For a knowledge question the assistant measures coverage: the share of the question's key terms that actually appear in the retrieved memories and passages. BM25 with OR returns a passage when any single word matches, so a hit alone proves little. Below 0.6 the LLM is not called. Melchior says it does not have that in its notes and asks to be told, and the reply is stored with learn(question, answer), so the same question is answered next time. The system prompt also says that facts come only from the given fragments and that the model may only combine and reason over them."
+      ] },
+      { heading: "Making a 1.5B model work", text: [
+        "The prompt uses the ChatML template from the GGUF file. Its layout is chosen for llama.cpp's KV-cache prefix reuse: system prompt, a fixed persona example turn, a profile turn, then history, recalled memories and finally the fragments with the question. Everything before the history stays the same between turns, and history keeps only bare questions, so the cached prefix is not recomputed. A warm-up at start-up processes it once.",
+        "Names are answered in code, because with both names in the prompt the small model swaps them. Stop sequences cut off invented next turns, and a token budget (400 context tokens, 3 history turns, markdown stripped from fragments) keeps the time to the first word short."
+      ] },
+      { heading: "Voice", text: [
+        "Vosk recognises the wake phrase from a small grammar on one continuous audio stream, which uses little CPU and gives few false wake-ups. After waking, it stays awake for a few minutes so follow-up questions need no wake phrase. Piper runs in two threads: sentence N+1 is synthesised while sentence N plays, all into one long-running aplay process, so there are no gaps between sentences."
+      ] }
+    ],
+    highlights: [
+      "Fully offline on a Raspberry Pi 5: Vosk, llama.cpp with Bielik 1.5B Q4_K_M, Piper",
+      "SQLite FTS5 / BM25 instead of FAISS and torch: about 1 GB less RAM, start-up under 1 s",
+      "Fact gate: under 60 % coverage the model is not called, and the assistant asks and learns instead",
+      "Prompt laid out for llama.cpp KV prefix reuse; names, facts and tools handled in code"
+    ],
+    demo: "melchior",
+    demoNote: "The real assistant speaks Polish and runs the Bielik model on the Pi. This demo ports its decision pipeline to JavaScript (stemming, BM25, coverage, the gate, memory and tools) and runs it in English on made-up notes. Only the language model's sentence is simulated.",
+    snippets: [
+      {
+        language: "python", file: "storage.py",
+        note: "Coverage: what share of the question's key terms the retrieved facts really contain. It is copied as written; only the Polish docstring examples are translated or replaced.",
+        code: `def coverage(question: str, texts: Iterable[str]) -> float:
+    """Share of the question's key terms that appear in the retrieved texts (0.0-1.0).
+
+    BM25 with OR returns a passage when ANY term matches, so "weather in <town>" happily
+    retrieves the persona file because it mentions the town. Coverage tells whether the
+    facts are really about what was asked. A question without key terms ("why?") is 1.0."""
+    asked = [_fold(w) for w in key_words(question)]
+    if not asked:
+        return 1.0
+    words = set(_WORD_RE.findall(_fold(" ".join(texts))))
+    covered = sum(1 for a in asked if any(_same_word(w, a) for w in words))
+    return covered / len(asked)`
+      },
+      {
+        language: "python", file: "assistant.py",
+        note: "The fact gate in _answer_from_facts(): too little coverage means no LLM call. The Polish trace messages are translated to English.",
+        code: `        facts = [m.content for m in memories] + [p.text for p in passages]
+        cov = coverage(search_q, facts)
+        self._trace("gate.coverage", f"{cov:.0%} (threshold {self.min_coverage:.0%})")
+
+        # The fact gate: no data about it -> do not let the model guess, ask the user instead
+        if self.strict_facts and cov < self.min_coverage and not is_task(question) and not used_web:
+            if not is_question(question):
+                # A statement asks for no fact: just reply briefly
+                self._trace("gate.statement", "not a question -> short reply without facts")
+                answer = self._generate(question, question, self.max_tokens_chat, on_token)
+                return Answer(text=answer, kind="chat", coverage=cov)
+            self._trace("gate.closed", "no facts -> asking the user, the LLM is not called")
+            return self._ask_user(question, on_token, cov)`
+      }
+    ]
+  },
+
+  {
     id: "arm-teleop",
     cover: "assets/projects/arm-teleop/cover.webp",
     coverOnPage: false,
@@ -243,6 +325,7 @@ if (PrzeciecieX < 0.0f && PrzeciecieY < 0.0f) {
     tagline: "An ESP32 reads a Nightscout CGM feed and draws the value on a 32×16 Bluetooth LED panel through a reverse-engineered protocol.",
     status: "finished",
     category: "personal",
+    featured: true,
     order: 5,
     tech: ["C++", "Arduino", "ESP32", "Bluetooth LE", "REST API", "ArduinoJson"],
     summary: "Every minute an ESP32 fetches the latest continuous-glucose reading over HTTPS and paints it on a cheap RGB LED panel, pixel by pixel, over Bluetooth LE, with trend arrows and a stale-data warning.",
