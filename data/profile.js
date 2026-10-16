@@ -21,7 +21,7 @@ window.PORTFOLIO.profile = {
     { k: "Guild", v: "Intel (2023–2026)" },
     { k: "Rank", v: "MSc Eng., Robotics" },
     { k: "Weapons", v: "Python · C/C++ · Bash" },
-    { k: "Hobbies", v: "Piano, jazz, basketball, baseball, games" }
+    { k: "Hobbies", v: "Piano, Classical music, Jazz, Basketball, Baseball, Video and Board Games" }
   ],
 
   facts: [
