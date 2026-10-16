@@ -22,20 +22,29 @@
       const scale = Math.min(1.25, Math.max(0.55, W / 1400)) * (H / 900 + 0.2);
       const parts = [];
       const towers = [
-        { dx: -260, w: 46, h: 300 }, { dx: -190, w: 70, h: 210 }, { dx: -110, w: 54, h: 380 },
+        { dx: -260, w: 80, h: 350 }, { dx: -190, w: 70, h: 210 }, { dx: -110, w: 54, h: 380 },
         { dx: -40, w: 120, h: 260 }, { dx: 70, w: 60, h: 470 }, { dx: 140, w: 90, h: 230 },
-        { dx: 220, w: 40, h: 330 }, { dx: 270, w: 80, h: 180 }
+        { dx: 220, w: 40, h: 330 }, { dx: 270, w: 80, h: 180 },
       ];
       for (const t of towers) {
         const w = t.w * scale, h = t.h * scale * (0.9 + rand() * 0.2), x = cx + t.dx * scale - w / 2;
         parts.push({ x, y: base - h, w, h, spire: rand() > 0.35, battlement: rand() > 0.4 });
       }
+            // Floating keep (Castlevania-style): a tower with nothing under it, reached by a slanted bridge.
+      const keep = { dx: -380, dy: 300, w: 50, h: 100 };   // dy = height of the keep's bottom above the ground
+      const kw = keep.w * scale, kh = keep.h * scale;
+      const kx = cx + keep.dx * scale - kw / 2, ky = base - keep.dy * scale - kh;
+      parts.push({ x: kx, y: ky, w: kw, h: kh, spire: true, battlement: false, hang: true });
+      const from = parts[0];                               // tower the bridge leaves from (0 = first entry in towers)
+      const bridge = { x1: from.x + from.w / 2, y1: base - 150 * scale, x2: kx + kw / 2, y2: ky + kh, thick: 8 * scale };
+
+
       const windows = [];
       for (const p of parts) {
         const n = Math.floor(p.h / (38 * scale));
-        for (let i = 1; i < n; i++) if (rand() > 0.55) windows.push({ x: p.x + p.w * (0.3 + rand() * 0.4), y: p.y + i * 38 * scale, w: 4 * scale + 2, h: 9 * scale + 3, phase: rand() * 6.28, lit: rand() > 0.3 });
+        for (let i = 1; i < n; i++) if (rand() > 0.05) windows.push({ x: p.x + p.w * (0.3 + rand() * 0.4), y: p.y + i * 38 * scale, w: 4 * scale + 2, h: 9 * scale + 3, phase: rand() * 6.28, lit: rand() > 0.3 });
       }
-      return { parts, windows, base, scale, cx };
+      return { parts, windows, base, scale, cx, bridge };
     }
 
     function resize() {
@@ -58,6 +67,7 @@
     }
 
     function draw(t) {
+
       // Sky
       const sky = ctx.createLinearGradient(0, 0, 0, H);
       sky.addColorStop(0, "#05060a"); sky.addColorStop(0.55, "#0e0f1a"); sky.addColorStop(1, "#1a0d14");
@@ -94,11 +104,20 @@
       ctx.beginPath(); ctx.moveTo(0, H);
       for (let x = 0; x <= W; x += 20) ctx.lineTo(x, H * 0.8 - Math.sin(x * 0.006) * 30 - Math.sin(x * 0.017) * 12);
       ctx.lineTo(W, H); ctx.fill();
+                 // Bridge to the floating keep: a rectangle rotated to point from its start to the keep's bottom.
 
+      ctx.fillStyle = "#050509";
+      const br = castle.bridge;
+      ctx.save();
+      ctx.translate(br.x1, 400);
+      ctx.rotate(Math.atan2(br.y2 - br.y1+30, br.x2 - br.x1));
+      ctx.fillRect(0, -br.thick / 2, Math.hypot(br.x2 - br.x1, br.y2 - br.y1), br.thick+20);
+      ctx.restore();
       // Castle
       ctx.fillStyle = "#050509";
       for (const p of castle.parts) {
-        ctx.fillRect(p.x, p.y, p.w, p.h + 4);
+        ctx.fillRect(p.x, p.y, p.w, p.hang ? p.h : p.h + 4);
+        if (p.hang) { ctx.beginPath(); ctx.moveTo(p.x, p.y + p.h); ctx.lineTo(p.x + p.w / 2, p.y + p.h + p.w * 0.8); ctx.lineTo(p.x + p.w, p.y + p.h); ctx.fill(); }
         if (p.battlement) {
           const n = Math.max(3, Math.floor(p.w / 10)), bw = p.w / (n * 2 - 1);
           for (let i = 0; i < n; i++) ctx.fillRect(p.x + i * bw * 2, p.y - bw * 1.1, bw, bw * 1.1);

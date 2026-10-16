@@ -432,20 +432,20 @@ bool writePixel(int x, int y, RGB c) {
 
   {
     id: "robor-sword",
-    title: "Robor: a sword for a robot model kit",
+    title: "Robor: a sword for a gunpla model kit",
     tagline: "Mechanical design in Autodesk Inventor: CAD model, technical drawings, renders and a stress analysis of the handle.",
     status: "finished",
     category: "university",
     order: 8,
     year: "2023",
     tech: ["Autodesk Inventor", "FEA", "CAD", "Technical drawing"],
-    summary: "A sword accessory that fits the hand of a 1/144 robot model kit, designed and analysed in Autodesk Inventor: assembly and part drawings, renders and a static stress analysis.",
+    summary: "A sword accessory that fits the hand of a 1/144 gunpla model kit, designed and analysed in Autodesk Inventor: assembly and part drawings, renders and a static stress analysis.",
     cover: "assets/projects/robor/render-scene.webp",
     coverAlt: "Render of the sword model in a dark industrial scene",
     role: "Author",
     description: [
       { heading: "The project", text: [
-        "Plastic robot model kits come with few accessories, so I designed a large sword that clips into the hand of a 1/144 High Grade kit. The model was built in Autodesk Inventor 2022 with a full assembly drawing, a detailed part drawing of the handle, and renders of the finished part.",
+        "Plastic gunpla model kits come with few accessories, so I designed a large sword that clips into the hand of a 1/144 High Grade kit. The model was built in Autodesk Inventor 2022 with a full assembly drawing, a detailed part drawing of the handle, and renders of the finished part.",
         "To check that the thin handle survives being held, I ran a static stress analysis of the handle in HDPE under a 5 N load. The maximum von Mises stress was about 5.3 MPa with a displacement of 0.32 mm, giving a minimum safety factor of about 3.9."
       ] }
     ],
