@@ -30,12 +30,11 @@
         const w = t.w * scale, h = t.h * scale * (0.9 + rand() * 0.2), x = cx + t.dx * scale - w / 2;
         parts.push({ x, y: base - h, w, h, spire: rand() > 0.35, battlement: rand() > 0.4 });
       }
-            // Floating keep (Castlevania-style): a tower with nothing under it, reached by a slanted bridge.
       const keep = { dx: -380, dy: 300, w: 50, h: 100 };   // dy = height of the keep's bottom above the ground
       const kw = keep.w * scale, kh = keep.h * scale;
       const kx = cx + keep.dx * scale - kw / 2, ky = base - keep.dy * scale - kh;
       parts.push({ x: kx, y: ky, w: kw, h: kh, spire: true, battlement: false, hang: true });
-      const from = parts[0];                               // tower the bridge leaves from (0 = first entry in towers)
+      const from = parts[0];
       const bridge = { x1: from.x + from.w / 2, y1: base - 150 * scale, x2: kx + kw / 2, y2: ky + kh, thick: 8 * scale };
 
 
