@@ -445,7 +445,7 @@ bool writePixel(int x, int y, RGB c) {
     role: "Author",
     description: [
       { heading: "The project", text: [
-        "Plastic gunpla model kits come with few accessories, so I designed a large sword that clips into the hand of a 1/144 High Grade kit. The model was built in Autodesk Inventor 2022 with a full assembly drawing, a detailed part drawing of the handle, and renders of the finished part.",
+        "Plastic gunpla model kits come with replacable accessories, so I recreated a sword accessory of a 1/144 High Grade Gundam Exia kit. The model was built in Autodesk Inventor 2022 with a full assembly drawing, a detailed part drawing of the handle, and renders of the finished part.",
         "To check that the thin handle survives being held, I ran a static stress analysis of the handle in HDPE under a 5 N load. The maximum von Mises stress was about 5.3 MPa with a displacement of 0.32 mm, giving a minimum safety factor of about 3.9."
       ] }
     ],
