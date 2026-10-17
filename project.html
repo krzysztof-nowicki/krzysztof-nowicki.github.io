@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-style="gothic">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,8 +7,13 @@
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Spectral:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&family=Silkscreen&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Spectral:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Silkscreen&display=swap" rel="stylesheet">
+  <!-- Style switch: ?style=pro or ?style=gothic in the URL, else the visitor's last choice, else gothic. -->
+  <script>(function () { var d = document.documentElement, s = "gothic"; try { var q = new URLSearchParams(location.search).get("style"), v = q || JSON.parse(localStorage.getItem("kn:style") || "null"); if (v === "pro" || v === "gothic") s = v; if (q === "pro" || q === "gothic") localStorage.setItem("kn:style", JSON.stringify(q)); var t = localStorage.getItem("kn:theme"); if (t) d.dataset.theme = JSON.parse(t); } catch (e) {} d.dataset.style = s; })();</script>
+  <link rel="stylesheet" href="css/style.css" id="css-gothic">
+  <link rel="stylesheet" href="css/pro.css" id="css-pro">
+  <link rel="stylesheet" href="css/switch.css">
+  <script>document.getElementById(document.documentElement.dataset.style === "pro" ? "css-gothic" : "css-pro").disabled = true;</script>
 </head>
 <body class="page-project">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -24,12 +29,14 @@
         <li><a href="index.html#chronicle">Experience</a></li>
         <li><a href="index.html#contact">Contact</a></li>
       </ul>
-      <div class="hud-hearts" title="Candles broken — find them around the castle" aria-live="polite"><span class="pixel">♥</span> <span class="hud-hearts__count">00</span></div>
+      <button class="style-switch" type="button"><span class="style-switch__icon" aria-hidden="true"></span><span class="style-switch__text"></span></button>
+      <div class="hud-hearts only-gothic" title="Candles broken — find them around the castle" aria-live="polite"><span class="pixel">♥</span> <span class="hud-hearts__count">00</span></div>
+      <button class="theme-toggle only-pro" type="button" aria-label="Switch to light theme"><span aria-hidden="true"></span></button>
     </nav>
   </header>
 
   <main id="main" class="project-page">
-    <a class="back-link" href="index.html#projects">← Back to the library</a>
+    <a class="back-link" href="index.html#projects"><span class="only-gothic">← Back to the library</span><span class="only-pro">← All projects</span></a>
     <article class="project" hidden>
       <header class="project__head">
         <div class="project__badges"></div>
@@ -67,9 +74,9 @@
     </article>
 
     <div class="not-found" hidden>
-      <h1>This page lies in another castle</h1>
-      <p>The project you are looking for does not exist.</p>
-      <a class="btn btn--blood" href="index.html#projects">Return to the library</a>
+      <h1><span class="only-gothic">This page lies in another castle</span><span class="only-pro">Project not found</span></h1>
+      <p><span class="only-gothic">The project you are looking for does not exist.</span><span class="only-pro">The project you are looking for does not exist or has been moved.</span></p>
+      <a class="btn btn--blood" href="index.html#projects"><span class="only-gothic">Return to the library</span><span class="only-pro">Back to all projects</span></a>
     </div>
   </main>
 
@@ -82,7 +89,8 @@
   </div>
 
   <footer class="site-footer">
-    <p>Built with HTML, CSS and vanilla JavaScript. No castles were harmed.</p>
+    <p class="only-gothic">Built with HTML, CSS and vanilla JavaScript. No castles were harmed.</p>
+    <p class="only-pro">© <span class="site-footer__year"></span> <span class="site-footer__name"></span> · Built with HTML, CSS and vanilla JavaScript.</p>
   </footer>
 
   <script src="data/profile.js"></script>

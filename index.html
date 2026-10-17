@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-style="gothic">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,8 +8,13 @@
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Spectral:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&family=Silkscreen&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Spectral:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Silkscreen&display=swap" rel="stylesheet">
+  <!-- Style switch: ?style=pro or ?style=gothic in the URL, else the visitor's last choice, else gothic. -->
+  <script>(function () { var d = document.documentElement, s = "gothic"; try { var q = new URLSearchParams(location.search).get("style"), v = q || JSON.parse(localStorage.getItem("kn:style") || "null"); if (v === "pro" || v === "gothic") s = v; if (q === "pro" || q === "gothic") localStorage.setItem("kn:style", JSON.stringify(q)); var t = localStorage.getItem("kn:theme"); if (t) d.dataset.theme = JSON.parse(t); } catch (e) {} d.dataset.style = s; })();</script>
+  <link rel="stylesheet" href="css/style.css" id="css-gothic">
+  <link rel="stylesheet" href="css/pro.css" id="css-pro">
+  <link rel="stylesheet" href="css/switch.css">
+  <script>document.getElementById(document.documentElement.dataset.style === "pro" ? "css-gothic" : "css-pro").disabled = true;</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -25,7 +30,9 @@
         <li><a href="#chronicle">Experience</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <div class="hud-hearts" title="Candles broken — find them around the castle" aria-live="polite"><span class="pixel">♥</span> <span class="hud-hearts__count">00</span></div>
+      <button class="style-switch" type="button"><span class="style-switch__icon" aria-hidden="true"></span><span class="style-switch__text"></span></button>
+      <div class="hud-hearts only-gothic" title="Candles broken — find them around the castle" aria-live="polite"><span class="pixel">♥</span> <span class="hud-hearts__count">00</span></div>
+      <button class="theme-toggle only-pro" type="button" aria-label="Switch to light theme"><span aria-hidden="true"></span></button>
     </nav>
   </header>
 
@@ -33,24 +40,26 @@
     <section class="hero" aria-labelledby="hero-title">
       <canvas class="hero__canvas" aria-hidden="true"></canvas>
       <div class="hero__content">
-        <p class="pixel hero__kicker">— Prologue —</p>
+        <p class="pixel hero__kicker only-gothic">— Prologue —</p>
+        <p class="hero__kicker only-pro"><span class="dot" aria-hidden="true"></span> Portfolio</p>
         <h1 id="hero-title" class="hero__title"></h1>
         <p class="hero__role"></p>
         <p class="hero__lead"></p>
         <div class="hero__actions">
-          <a class="btn btn--blood" href="#projects">Enter the library</a>
-          <a class="btn btn--ghost" href="#contact">Send a raven</a>
+          <a class="btn btn--blood" href="#projects"><span class="only-gothic">Enter the library</span><span class="only-pro">View projects</span></a>
+          <a class="btn btn--ghost" href="#contact"><span class="only-gothic">Send a raven</span><span class="only-pro">Get in touch</span></a>
         </div>
       </div>
-      <aside class="status-window hero__status" aria-label="Character sheet"></aside>
-      <a class="hero__scroll" href="#about" aria-label="Scroll to About"><span></span></a>
+      <aside class="status-window hero__status" aria-label="Overview"></aside>
+      <a class="hero__scroll only-gothic" href="#about" aria-label="Scroll to About"><span></span></a>
     </section>
 
     <section class="section" id="about" aria-labelledby="about-title">
       <header class="section__head">
-        <p class="pixel section__kicker">Chapter I</p>
+        <p class="pixel section__kicker only-gothic">Chapter I</p>
+        <p class="section__kicker only-pro">01 · About</p>
         <h2 id="about-title">About me</h2>
-        <button class="candle" type="button" aria-label="Break the candle"></button>
+        <button class="candle only-gothic" type="button" aria-label="Break the candle"></button>
       </header>
       <div class="about">
         <div class="about__text"></div>
@@ -60,9 +69,10 @@
 
     <section class="section" id="projects" aria-labelledby="projects-title">
       <header class="section__head">
-        <p class="pixel section__kicker">Chapter II — The Library</p>
+        <p class="pixel section__kicker only-gothic">Chapter II — The Library</p>
+        <p class="section__kicker only-pro">02 · Work</p>
         <h2 id="projects-title">Projects</h2>
-        <button class="candle" type="button" aria-label="Break the candle"></button>
+        <button class="candle only-gothic" type="button" aria-label="Break the candle"></button>
       </header>
       <div class="filters" role="toolbar" aria-label="Filter projects">
         <div class="filters__group" data-filter="status">
@@ -73,11 +83,11 @@
         <label class="filters__search"><span class="sr-only">Search projects</span><input type="search" placeholder="Search by name or technology…" autocomplete="off"></label>
         <div class="filters__tags" aria-label="Filter by technology"></div>
       </div>
-      <p class="filters__empty" hidden>No project matches — try another spell.</p>
+      <p class="filters__empty" hidden><span class="only-gothic">No project matches — try another spell.</span><span class="only-pro">No projects match these filters.</span></p>
       <div class="project-grid" aria-live="polite"></div>
 
       <details class="archive">
-        <summary><span class="pixel">The Archive</span> Lab exercises and coursework</summary>
+        <summary><span class="pixel only-gothic">The Archive</span><span class="archive__label only-pro">Archive</span> Lab exercises and coursework</summary>
         <p class="archive__note">Smaller exercises from university labs and courses. Kept for completeness, not as showcases.</p>
         <ul class="archive__list"></ul>
       </details>
@@ -85,36 +95,40 @@
 
     <section class="section" id="skills" aria-labelledby="skills-title">
       <header class="section__head">
-        <p class="pixel section__kicker">Chapter III — Relics</p>
+        <p class="pixel section__kicker only-gothic">Chapter III — Relics</p>
+        <p class="section__kicker only-pro">03 · Skills</p>
         <h2 id="skills-title">Skills</h2>
-        <button class="candle" type="button" aria-label="Break the candle"></button>
+        <button class="candle only-gothic" type="button" aria-label="Break the candle"></button>
       </header>
-      <p class="section__intro">Each meter counts the projects on this site that use the skill. Click a skill to see those projects.</p>
+      <p class="section__intro">Each <span class="only-gothic">meter</span><span class="only-pro">bar</span> counts the projects on this site that use the skill. Click a skill to see those projects.</p>
       <div class="skills"></div>
     </section>
 
     <section class="section" id="chronicle" aria-labelledby="chronicle-title">
       <header class="section__head">
-        <p class="pixel section__kicker">Chapter IV — Chronicle</p>
+        <p class="pixel section__kicker only-gothic">Chapter IV — Chronicle</p>
+        <p class="section__kicker only-pro">04 · Experience</p>
         <h2 id="chronicle-title">Experience &amp; education</h2>
-        <button class="candle" type="button" aria-label="Break the candle"></button>
+        <button class="candle only-gothic" type="button" aria-label="Break the candle"></button>
       </header>
       <ol class="timeline"></ol>
     </section>
 
     <section class="section section--contact" id="contact" aria-labelledby="contact-title">
       <header class="section__head">
-        <p class="pixel section__kicker">Epilogue</p>
-        <h2 id="contact-title">Contact</h2>
-        <button class="candle" type="button" aria-label="Break the candle"></button>
+        <p class="pixel section__kicker only-gothic">Epilogue</p>
+        <p class="section__kicker only-pro">05 · Contact</p>
+        <h2 id="contact-title"><span class="only-gothic">Contact</span><span class="only-pro">Let's talk</span></h2>
+        <button class="candle only-gothic" type="button" aria-label="Break the candle"></button>
       </header>
       <div class="contact"></div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>Built with HTML, CSS and vanilla JavaScript. No castles were harmed.</p>
-    <p class="pixel site-footer__hint">↑ ↑ ↓ ↓ ← → ← → B A</p>
+    <p class="only-gothic">Built with HTML, CSS and vanilla JavaScript. No castles were harmed.</p>
+    <p class="pixel site-footer__hint only-gothic">↑ ↑ ↓ ↓ ← → ← → B A</p>
+    <p class="only-pro">© <span class="site-footer__year"></span> <span class="site-footer__name"></span> · Built with HTML, CSS and vanilla JavaScript.</p>
   </footer>
 
   <script src="data/profile.js"></script>

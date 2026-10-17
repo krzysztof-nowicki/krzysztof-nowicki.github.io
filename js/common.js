@@ -47,7 +47,12 @@
       String(b.year || "").localeCompare(String(a.year || "")));
   }
 
-  P.util = { h, store, STATUS_LABEL, KIND_LABEL, projectUrl, reducedMotion, sortedProjects };
+  /** The same text in both site styles: the gothic wording and the professional one (see css/switch.css). */
+  function dual(gothic, pro) {
+    return [h("span", { class: "only-gothic" }, gothic), h("span", { class: "only-pro" }, pro)];
+  }
+
+  P.util = { h, dual, store, STATUS_LABEL, KIND_LABEL, projectUrl, reducedMotion, sortedProjects };
 
   /* ---------- Nav ---------- */
   function initNav() {
@@ -86,6 +91,56 @@
       }, { rootMargin: "-45% 0px -50% 0px" });
       sections.forEach(s => io.observe(s));
     }
+  }
+
+  /* ---------- Gothic / professional style ---------- */
+  // <html data-style> is set before the page paints (inline script in the <head>); this button flips it.
+  function initStyle() {
+    const btn = document.querySelector(".style-switch");
+    const root = document.documentElement;
+    const apply = style => {
+      root.dataset.style = style;
+      const gothic = document.getElementById("css-gothic"), pro = document.getElementById("css-pro");
+      if (gothic) gothic.disabled = style !== "gothic";
+      if (pro) pro.disabled = style !== "pro";
+      if (btn) {
+        const other = style === "pro" ? "Victorian" : "Professional";
+        btn.querySelector(".style-switch__text").textContent = other;
+        btn.setAttribute("aria-label", `Switch to the ${other.toLowerCase()} style`);
+        btn.title = `Switch to the ${other.toLowerCase()} style`;
+      }
+    };
+    apply(root.dataset.style === "pro" ? "pro" : "gothic");
+    if (btn) btn.addEventListener("click", () => {
+      const next = root.dataset.style === "pro" ? "gothic" : "pro";
+      store.set("style", next);
+      const url = new URL(location.href);                 // a ?style= link must not win over the button
+      if (url.searchParams.has("style")) { url.searchParams.delete("style"); history.replaceState(null, "", url); }
+      // Demos read the colours once when they start, so a page with a running demo is reloaded.
+      if (document.querySelector(".demo")) { location.reload(); return; }
+      apply(next);
+      window.dispatchEvent(new Event("resize"));      // the castle canvas measures itself again
+    });
+  }
+
+  /* ---------- Light / dark theme ---------- */
+  // The page follows the system setting until the visitor picks one; the choice is kept in localStorage.
+  // Demos always use the dark tokens (see style.css), so they look the same in both themes.
+  function initTheme() {
+    const btn = document.querySelector(".theme-toggle");
+    const root = document.documentElement;
+    const current = () => root.dataset.theme || (window.matchMedia && matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+    const label = () => { if (btn) btn.setAttribute("aria-label", current() === "dark" ? "Switch to light theme" : "Switch to dark theme"); };
+    label();
+    if (btn) btn.addEventListener("click", () => {
+      root.dataset.theme = current() === "dark" ? "light" : "dark";
+      store.set("theme", root.dataset.theme);
+      label();
+    });
+    const year = document.querySelector(".site-footer__year");
+    if (year) year.textContent = new Date().getFullYear();
+    const name = document.querySelector(".site-footer__name");
+    if (name && P.profile) name.textContent = P.profile.name;
   }
 
   /* ---------- Candles & hearts ---------- */
@@ -136,6 +191,8 @@
 
   document.addEventListener("DOMContentLoaded", () => {
     initNav();
+    initStyle();
+    initTheme();
     initCandles();
     initKonami();
   });

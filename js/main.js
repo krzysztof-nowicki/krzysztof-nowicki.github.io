@@ -3,10 +3,13 @@
   "use strict";
 
   const P = window.PORTFOLIO;
-  const { h, STATUS_LABEL, KIND_LABEL, projectUrl, sortedProjects } = P.util;
+  const { h, dual, STATUS_LABEL, KIND_LABEL, projectUrl, sortedProjects } = P.util;
   const profile = P.profile;
 
   /* ---------- Hero, About ---------- */
+  // profile.sheet uses the gothic labels; the professional style shows them in plain words.
+  const SHEET_LABEL = { Class: "Role", Guild: "Company", Rank: "Degree", Weapons: "Languages", Hobbies: "Interests" };
+
   function renderHero() {
     document.querySelector(".hero__title").textContent = profile.name;
     document.querySelector(".hero__role").textContent = profile.role;
@@ -15,11 +18,11 @@
     const shown = sortedProjects().filter(p => !p.compact && p.category !== "lab");
     const finished = shown.filter(p => p.status === "finished").length;
     sheet.append(
-      h("p", { class: "status-window__title" }, "Character sheet"),
-      h("dl", { class: "sheet" }, profile.sheet.map(s => h("div", { class: "stat-row" }, h("dt", {}, s.k), h("dd", {}, s.v)))),
-      h("div", { class: "stat-row" }, h("span", { class: "k" }, "Quests"),
-        h("span", { class: "v" }, `${finished} completed · ${shown.length - finished} in progress`,
-          h("span", { class: "bar", role: "img", "aria-label": `${finished} of ${shown.length} quests completed` }, h("i", { style: `width:${shown.length ? (finished / shown.length) * 100 : 0}%` }))))
+      h("p", { class: "status-window__title" }, dual("Character sheet", "Overview")),
+      h("dl", { class: "sheet" }, profile.sheet.map(s => h("div", { class: "stat-row" }, h("dt", {}, dual(s.k, SHEET_LABEL[s.k] || s.k)), h("dd", {}, s.v)))),
+      h("div", { class: "stat-row" }, h("span", { class: "k" }, dual("Quests", "Projects")),
+        h("span", { class: "v" }, dual(`${finished} completed · ${shown.length - finished} in progress`, `${finished} finished · ${shown.length - finished} in progress`),
+          h("span", { class: "bar", role: "img", "aria-label": `${finished} of ${shown.length} projects finished` }, h("i", { style: `width:${shown.length ? (finished / shown.length) * 100 : 0}%` }))))
     );
   }
 

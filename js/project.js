@@ -3,7 +3,7 @@
   "use strict";
 
   const P = window.PORTFOLIO;
-  const { h, STATUS_LABEL, KIND_LABEL, projectUrl, sortedProjects } = P.util;
+  const { h, dual, STATUS_LABEL, KIND_LABEL, projectUrl, sortedProjects } = P.util;
 
   function paragraphs(desc) {
     // description: array of strings, or of { heading, text: [..] | string, list: [..] }
@@ -92,7 +92,7 @@
       ["Status", STATUS_LABEL[p.status] || p.status], ["Type", KIND_LABEL[p.category] || p.category], ["Year", p.year],
       ["Role", p.role], ["Team", p.team], ["Stack", (p.tech || []).slice(0, 4).join(", ")], ...(p.facts || [])
     ].filter(f => f[1]);
-    article.querySelector(".project__facts").append(h("p", { class: "status-window__title" }, "Quest log"),
+    article.querySelector(".project__facts").append(h("p", { class: "status-window__title" }, dual("Quest log", "Project facts")),
       h("dl", {}, facts.map(([k, v]) => h("div", { class: "stat-row" }, h("dt", {}, k), h("dd", {}, v)))));
 
     // Demo
